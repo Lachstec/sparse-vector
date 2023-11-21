@@ -13,6 +13,10 @@ public interface ISparseVector {
      * @return returns the value of the element
      */
     double getElement(int index);
+
+    /**
+     * @param index
+     */
     void remove(int index);
     void add(ISparseVector vector);
     int getLength();
