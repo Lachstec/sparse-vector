@@ -3,7 +3,7 @@ import java.util.Optional;
 public class SparseVector implements ISparseVector {
 
     private class LinkedList {
-        private static class Node {
+        static class Node {
             private int index;
             private double value;
             private Node next;
@@ -92,6 +92,10 @@ public class SparseVector implements ISparseVector {
                 return 0.0;
             }
         }
+
+        private Node getHead() {
+            return this.head;
+        }
     }
 
     private LinkedList backingList;
@@ -147,5 +151,21 @@ public class SparseVector implements ISparseVector {
     @Override
     public int getLength() {
         return this.length;
+    }
+
+    public boolean equals(SparseVector other) {
+        if(this.length == other.getLength()) {
+            LinkedList.Node node_self = this.backingList.getHead();
+            LinkedList.Node node_other = other.backingList.getHead();
+            while(node_self.getNext() != null && node_other.getNext() != null) {
+                if(node_self.getIndex() != node_other.getIndex() || node_self.getValue() != node_other.getValue()) {
+                    return false;
+                }
+                node_self = node_self.getNext();
+                node_other = node_other.getNext();
+            }
+            return true;
+        }
+        return false;
     }
 }
