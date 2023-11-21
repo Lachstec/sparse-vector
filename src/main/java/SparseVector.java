@@ -119,8 +119,9 @@ public class SparseVector implements ISparseVector {
         }
         if(value == 0.0) {
             this.remove(index);
+        }else{
+            this.backingList.add(index, value);
         }
-        this.backingList.add(index, value);
     }
 
     @Override
