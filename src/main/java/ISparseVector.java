@@ -29,7 +29,7 @@ public interface ISparseVector {
 
     /**
      * returns the actual length of the SparseVector.
-     * @return int
+     * @return returns the actual length of the SparseVector.
      */
     int getLength();
 }
