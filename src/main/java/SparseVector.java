@@ -79,6 +79,7 @@ public class SparseVector implements ISparseVector {
             if(current.getIndex() == index) {
                 prev.next = current.next;
             }
+            this.length -= 1;
         }
 
         public double get(int index) {
