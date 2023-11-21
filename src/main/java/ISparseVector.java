@@ -13,11 +13,12 @@ public interface ISparseVector {
      * @return returns the value of the element
      */
     double getElement(int index);
-
-    /**
-     * @param index
-     */
     void remove(int index);
     void add(ISparseVector vector);
+
+    /**
+     * returns the actual length of the SparseVector.
+     * @return int
+     */
     int getLength();
 }
