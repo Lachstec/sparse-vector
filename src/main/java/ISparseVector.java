@@ -13,7 +13,17 @@ public interface ISparseVector {
      * @return returns the value of the element
      */
     double getElement(int index);
+
+    /**
+     * Removes the element at <code>index</code>
+     * @param index of the element to remove
+     */
     void remove(int index);
+
+    /**
+     * Adds another vector to the values in this instance
+     * @param vector to add
+     */
     void add(ISparseVector vector);
 
     /**
