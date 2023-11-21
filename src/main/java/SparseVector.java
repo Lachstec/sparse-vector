@@ -46,7 +46,7 @@ public class SparseVector implements ISparseVector {
             this.head = null;
         }
 
-        //TODO: Unit Testing
+        //TODO: Unit Testing in progress
         public void add(int index, double value) {
             Node newNode = new Node(value, index);
             if (this.head == null) {
@@ -56,6 +56,7 @@ public class SparseVector implements ISparseVector {
                 while(current.next != null && index < current.next.getIndex()) {
                     current = current.next;
                 }
+                //TODO: Produces NullPointerException in Unittest
                 if(current.next.getIndex() == index) {
                     current.next.setValue(value);
                 } else {
