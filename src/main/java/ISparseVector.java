@@ -4,6 +4,7 @@ public interface ISparseVector {
      * Inserts the value at the index specified.
      * @param index, where the element is to be placed
      * @param value, of the element that is to be placed
+     * @throws IndexOutOfBoundsException when index is greater than length or smaller than 0.
      */
     void setElement(int index, double value);
 
