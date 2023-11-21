@@ -14,7 +14,7 @@ public interface ISparseVector {
      */
     double getElement(int index);
 
-    /**
+    /** Removes the element at <code>index</code>
      * @param index
      */
     void remove(int index);
