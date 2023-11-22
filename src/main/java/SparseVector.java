@@ -49,22 +49,28 @@ public class SparseVector implements ISparseVector {
         //TODO: Unit Testing in progress
         public void add(int index, double value) {
             Node newNode = new Node(value, index);
-            if (this.head == null) {
-                this.head = newNode;
+            // if the list is empty the new element becomes the head
+            if (head == null || head.index > index) {
+                newNode.next = head;
+                head = newNode;
+            } else if(head.index == index) {
+                // check if head and the new element have the same index
+                head.value = value;
+                // return so we don't increment length
+                return;
             } else {
                 Node current = head;
-                while(current.next != null && index < current.next.getIndex()) {
+                while(current.next != null && current.next.index < index) {
                     current = current.next;
                 }
-                //TODO: Produces NullPointerException in Unittest
-                if(current.next.getIndex() == index) {
-                    current.next.setValue(value);
-                } else {
-                    newNode.next = current.next;
-                    current.next = newNode;
+                if(current.next != null && current.next.index == index) {
+                    current.next.value = value;
+                    return;
                 }
+                newNode.next = current.next;
+                current.next = newNode;
             }
-            this.length += 1;
+            length += 1;
         }
 
         public void remove(int index) {
@@ -119,8 +125,10 @@ public class SparseVector implements ISparseVector {
             throw new IndexOutOfBoundsException(String.format("index %d out of bounds for size %d", index, this.length));
         }
         if(value == 0.0) {
-            this.remove(index);
-        }else{
+            if(this.getElement(index) != 0.0) {
+                this.remove(index);
+            }
+        } else {
             this.backingList.add(index, value);
         }
     }
@@ -147,7 +155,8 @@ public class SparseVector implements ISparseVector {
             throw new IllegalArgumentException(String.format("cannot add vector of length %d to vector of length %d", vector.getLength(), this.length));
         }
         for(int i = 0; i < vector.getLength(); i += 1) {
-            this.setElement(i, (this.backingList.get(i) + vector.getElement(i)));
+            double sum = this.getElement(i) + vector.getElement(i);
+            this.setElement(i, sum);
         }
     }
 
