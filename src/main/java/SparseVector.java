@@ -1,10 +1,8 @@
-import java.util.Optional;
-
 public class SparseVector implements ISparseVector {
 
-    private class LinkedList {
+    private static class LinkedList {
         static class Node {
-            private int index;
+            private final int index;
             private double value;
             private Node next;
 
@@ -16,10 +14,6 @@ public class SparseVector implements ISparseVector {
 
             public int getIndex() {
                 return index;
-            }
-
-            public void setIndex(int index) {
-                this.index = index;
             }
 
             public double getValue() {
@@ -51,24 +45,24 @@ public class SparseVector implements ISparseVector {
             Node newNode = new Node(value, index);
             // if the list is empty the new element becomes the head
             if (head == null || head.index > index) {
-                newNode.next = head;
+                newNode.setNext(head);
                 head = newNode;
             } else if(head.index == index) {
                 // check if head and the new element have the same index
-                head.value = value;
+                head.setValue(value);
                 // return so we don't increment length
                 return;
             } else {
                 Node current = head;
                 while(current.next != null && current.next.index < index) {
-                    current = current.next;
+                    current = current.getNext();
                 }
                 if(current.next != null && current.next.index == index) {
-                    current.next.value = value;
+                    current.getNext().setValue(value);
                     return;
                 }
-                newNode.next = current.next;
-                current.next = newNode;
+                newNode.setNext(current.getNext());
+                current.setNext(newNode);
             }
             length += 1;
         }
@@ -110,8 +104,8 @@ public class SparseVector implements ISparseVector {
         }
     }
 
-    private LinkedList backingList;
-    private int length;
+    private final LinkedList backingList;
+    private final int length;
 
     public SparseVector() {
         this.length = 0;
@@ -176,8 +170,8 @@ public class SparseVector implements ISparseVector {
         if(this.length == other.getLength()) {
             LinkedList.Node node_self = this.backingList.getHead();
             LinkedList.Node node_other = other.backingList.getHead();
-            if(node_other == null && node_self == null) {
-                return true;
+            if(node_self == null) {
+                return node_other == null;
             } else {
                 while (node_self.getNext() != null && node_other.getNext() != null) {
                     if (node_self.getIndex() != node_other.getIndex() || node_self.getValue() != node_other.getValue()) {
