@@ -84,7 +84,11 @@ public class SparseVector implements ISparseVector {
                 current = current.next;
             }
             if(current.getIndex() == index) {
-                prev.next = current.next;
+                if(prev == null) {
+                    head = current.next;
+                } else {
+                    prev.next = current.next;
+                }
             }
             this.length -= 1;
         }
@@ -138,6 +142,9 @@ public class SparseVector implements ISparseVector {
         if(index > this.length || index < 0) {
             throw new IndexOutOfBoundsException(String.format("index %d out of bounds for size %d", index, this.length));
         }
+        if(this.backingList.length == 0) {
+            return 0.0;
+        }
         return this.backingList.get(index);
     }
 
@@ -169,12 +176,16 @@ public class SparseVector implements ISparseVector {
         if(this.length == other.getLength()) {
             LinkedList.Node node_self = this.backingList.getHead();
             LinkedList.Node node_other = other.backingList.getHead();
-            while(node_self.getNext() != null && node_other.getNext() != null) {
-                if(node_self.getIndex() != node_other.getIndex() || node_self.getValue() != node_other.getValue()) {
-                    return false;
+            if(node_other == null && node_self == null) {
+                return true;
+            } else {
+                while (node_self.getNext() != null && node_other.getNext() != null) {
+                    if (node_self.getIndex() != node_other.getIndex() || node_self.getValue() != node_other.getValue()) {
+                        return false;
+                    }
+                    node_self = node_self.getNext();
+                    node_other = node_other.getNext();
                 }
-                node_self = node_self.getNext();
-                node_other = node_other.getNext();
             }
             return true;
         }
