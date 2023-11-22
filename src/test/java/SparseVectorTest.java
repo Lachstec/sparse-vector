@@ -24,6 +24,15 @@ class SparseVectorTest {
 
     @Test
     void remove() {
+        SparseVector vector = new SparseVector(10);
+        SparseVector emptyVector = new SparseVector(10);
+        for(int i = 0; i < 10; i += 1) {
+            vector.setElement(i, i);
+        }
+        for(int i = 0; i < 10; i += 1) {
+            vector.remove(i);
+        }
+        assertTrue(vector.equals(emptyVector));
     }
 
     @Test
