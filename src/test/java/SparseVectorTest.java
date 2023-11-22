@@ -80,4 +80,12 @@ class SparseVectorTest {
 
         assertTrue(vec1.equals(vec2));
     }
+
+   @Test
+    void testInvalidIndex() {
+        SparseVector vector = new SparseVector(10);
+        assertThrows(IndexOutOfBoundsException.class, () -> vector.getElement(11));
+        assertThrows(IndexOutOfBoundsException.class, () -> vector.getElement(-1));
+   }
+
 }
