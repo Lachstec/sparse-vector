@@ -162,28 +162,35 @@ public class SparseVector implements ISparseVector {
 
     @Override
     public double getElement(int index) throws IndexOutOfBoundsException{
+        //if the index is impossible, an exception is thrown
         if(index > this.length || index < 0) {
             throw new IndexOutOfBoundsException(String.format("index %d out of bounds for size %d", index, this.length));
         }
+        //if the actual length of the list is 0, we know that only values == 0 can be present, so we return 0.0
         if(this.backingList.length == 0) {
             return 0.0;
         }
+        //else, we return the index
         return this.backingList.get(index);
     }
 
     @Override
     public void remove(int index) throws IndexOutOfBoundsException {
+        //if the index is impossible, an exception is thrown
         if(index > this.length || index < 0) {
             throw new IndexOutOfBoundsException(String.format("index %d out of bounds for size %d", index, this.length));
         }
+        //else, the specified index is removed
         this.backingList.remove(index);
     }
 
     @Override
     public void add(ISparseVector vector) throws IllegalArgumentException {
+        //if the vectors are not equal in length, they cannot be added; an exception is thrown
         if(vector.getLength() != this.length) {
             throw new IllegalArgumentException(String.format("cannot add vector of length %d to vector of length %d", vector.getLength(), this.length));
         }
+        //vectors are added, node by node; getElement() and setElement() is used
         for(int i = 0; i < vector.getLength(); i += 1) {
             double sum = this.getElement(i) + vector.getElement(i);
             this.setElement(i, sum);
@@ -196,16 +203,21 @@ public class SparseVector implements ISparseVector {
     }
 
     public boolean equals(SparseVector other) {
+        //both vectors need to be equal in length
         if(this.length == other.getLength()) {
             LinkedList.Node node_self = this.backingList.getHead();
             LinkedList.Node node_other = other.backingList.getHead();
+            //if they are equal in length, and one vector is 0 in length, both must be
             if(node_self == null) {
                 return node_other == null;
             } else {
+                //we step through the vector one by one until the end is reached
                 while (node_self.getNext() != null && node_other.getNext() != null) {
+                    //if an inequality is found, false will be returned
                     if (node_self.getIndex() != node_other.getIndex() || node_self.getValue() != node_other.getValue()) {
                         return false;
                     }
+                    //the nodes are incremented
                     node_self = node_self.getNext();
                     node_other = node_other.getNext();
                 }
