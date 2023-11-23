@@ -1,6 +1,6 @@
 public class SparseVector implements ISparseVector {
     /*
-        Supporting Linked List Construct usually this would be in an extra file
+        Supporting Linked List Construct. Usually this would be in an extra file
      */
     private static class LinkedList {
         static class Node {
@@ -43,9 +43,9 @@ public class SparseVector implements ISparseVector {
         }
 
         /**
-         *
-         * @param index
-         * @param value
+         *  Adds an element to the list at <code>index</code>
+         * @param index where to insert the value
+         * @param value to insert
          */
         public void add(int index, double value) {
             Node newNode = new Node(value, index);
@@ -80,8 +80,8 @@ public class SparseVector implements ISparseVector {
         }
 
         /**
-         *
-         * @param index
+         *  Remove an element at a given <code>index</code> from the list.
+         * @param index of the element to remove
          */
         public void remove(int index) {
             if(head == null) {
@@ -90,7 +90,7 @@ public class SparseVector implements ISparseVector {
             Node current = this.head;
             Node prev = null;
             /*
-                Iterate through list until we we find an Element with given index
+                Iterate through list until we find an Element with given index
              */
             while(current.getIndex() != index && current.next != null) {
                 prev = current;
@@ -109,14 +109,14 @@ public class SparseVector implements ISparseVector {
         }
 
         /**
-         *
-         * @param index
-         * @return
+         *  Retrieve the value at <code>index</code>
+         * @param index of the desired value
+         * @return the value at <code>index</code>
          */
         public double get(int index) {
             Node current = this.head;
             /*
-                Iterate through list until we we find an Element with given index
+                Iterate through list until we find an Element with given index
              */
             while(current.getIndex() != index && current.next != null) {
                 current = current.next;
