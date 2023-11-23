@@ -1,5 +1,7 @@
 public class SparseVector implements ISparseVector {
-
+    /*
+        Supporting Linked List Construct usually this would be in an extra file
+     */
     private static class LinkedList {
         static class Node {
             private final int index;
@@ -40,7 +42,11 @@ public class SparseVector implements ISparseVector {
             this.head = null;
         }
 
-        //TODO: Unit Testing in progress
+        /**
+         *
+         * @param index
+         * @param value
+         */
         public void add(int index, double value) {
             Node newNode = new Node(value, index);
             // if the list is empty the new element becomes the head
@@ -54,30 +60,45 @@ public class SparseVector implements ISparseVector {
                 return;
             } else {
                 Node current = head;
+                /*
+                    Iterate through list as long as the Index of the Element we add
+                    is higher than the index of the current Element
+                 */
                 while(current.next != null && current.next.index < index) {
                     current = current.getNext();
                 }
+                // Add the new Element to existing index
                 if(current.next != null && current.next.index == index) {
                     current.getNext().setValue(value);
                     return;
                 }
+                // Add new Element to List
                 newNode.setNext(current.getNext());
                 current.setNext(newNode);
             }
             length += 1;
         }
 
+        /**
+         *
+         * @param index
+         */
         public void remove(int index) {
             if(head == null) {
                 return;
             }
             Node current = this.head;
             Node prev = null;
+            /*
+                Iterate through list until we we find an Element with given index
+             */
             while(current.getIndex() != index && current.next != null) {
                 prev = current;
                 current = current.next;
             }
+            // First check to prevent NullPointerException
             if(current.getIndex() == index) {
+                // if true remove first Element else remove other element
                 if(prev == null) {
                     head = current.next;
                 } else {
@@ -87,8 +108,16 @@ public class SparseVector implements ISparseVector {
             this.length -= 1;
         }
 
+        /**
+         *
+         * @param index
+         * @return
+         */
         public double get(int index) {
             Node current = this.head;
+            /*
+                Iterate through list until we we find an Element with given index
+             */
             while(current.getIndex() != index && current.next != null) {
                 current = current.next;
             }
