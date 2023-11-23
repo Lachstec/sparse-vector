@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -5,15 +6,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class SparseVectorTest {
 
     @Test
+    @DisplayName("Check if setting elements and retrieving them returns the previously set value")
     void setElement() {
         SparseVector vec1 = new SparseVector(100);
         vec1.setElement(1, 5.0);
-        vec1.setElement(1,6);
-        vec1.setElement(2,6);
+        vec1.setElement(1,6.0);
+        vec1.setElement(2,6.0);
         assertEquals(6.0 , vec1.getElement(2));
+        assertEquals(6.0, vec1.getElement(1));
     }
 
     @Test
+    @DisplayName("Check if retrieving an Element yields the correct value")
     void getElement() {
         SparseVector vec1 = new SparseVector(100);
         vec1.setElement(1, 5.0);
@@ -23,6 +27,7 @@ class SparseVectorTest {
     }
 
     @Test
+    @DisplayName("Check if removing an Element truly removes it as expected")
     void remove() {
         SparseVector vector = new SparseVector(10);
         SparseVector emptyVector = new SparseVector(10);
@@ -36,6 +41,7 @@ class SparseVectorTest {
     }
 
     @Test
+    @DisplayName("Test if two vectors where values are at the same indices return the correct value")
     void addSameIndices() {
         SparseVector vec1 = new SparseVector(100);
         vec1.setElement(1, 5.0);
@@ -58,6 +64,7 @@ class SparseVectorTest {
     }
 
     @Test
+    @DisplayName("Test if two vectors where values are at different indices return the correct value")
     void addDifferentIndices() {
         SparseVector vec1 = new SparseVector(10);
         vec1.setElement(4, 33.0);
@@ -72,6 +79,7 @@ class SparseVectorTest {
     }
 
     @Test
+    @DisplayName("Check if adding two vectors with different amount of non-zero rows returns the expected result")
     void addDifferentElemCount() {
         SparseVector vec1 = new SparseVector(10);
         vec1.setElement(4, 33.0);
@@ -87,6 +95,7 @@ class SparseVectorTest {
     }
 
     @Test
+    @DisplayName("Check if adding two vectors where adding rows result in a zero row remove the row")
     void addResultingInNullRow() {
         SparseVector vec1 = new SparseVector(1);
         SparseVector vec2 = new SparseVector(1);
@@ -100,6 +109,7 @@ class SparseVectorTest {
     }
 
     @Test
+    @DisplayName("Check that attempting to add two vectors with different lengths throws an IllegalArgumentException")
     void addWithDifferentLengths() {
         SparseVector vec1 = new SparseVector(10);
         SparseVector vec2 = new SparseVector(1);
@@ -111,6 +121,7 @@ class SparseVectorTest {
 
 
     @Test
+    @DisplayName("Check if the correct Length is returned")
     void getLength() {
         SparseVector vec = new SparseVector(1000);
         assertEquals(1000, vec.getLength());
@@ -120,6 +131,7 @@ class SparseVectorTest {
     }
 
     @Test
+    @DisplayName("Test that testing vectors for equality returns results as expected")
     void testEquals() {
         SparseVector vec1 = new SparseVector(100);
         vec1.setElement(1, 5.0);
@@ -135,6 +147,7 @@ class SparseVectorTest {
     }
 
    @Test
+   @DisplayName("Test that accessing an index outside of length throws an IndexOutOfBoundsException")
     void testInvalidIndex() {
         SparseVector vector = new SparseVector(10);
         assertThrows(IndexOutOfBoundsException.class, () -> vector.getElement(11));
