@@ -36,7 +36,7 @@ class SparseVectorTest {
     }
 
     @Test
-    void add() {
+    void addSameIndices() {
         SparseVector vec1 = new SparseVector(100);
         vec1.setElement(1, 5.0);
         vec1.setElement(10, 50.0);
@@ -56,6 +56,59 @@ class SparseVectorTest {
 
         assertTrue(vec3.equals(vec1));
     }
+
+    @Test
+    void addDifferentIndices() {
+        SparseVector vec1 = new SparseVector(10);
+        vec1.setElement(4, 33.0);
+        SparseVector vec2 = new SparseVector(10);
+        vec2.setElement(1, 12.3);
+        SparseVector expected = new SparseVector(10);
+        expected.setElement(4, 33.0);
+        expected.setElement(1, 12.3);
+        vec1.add(vec2);
+
+        assertTrue(vec1.equals(expected));
+    }
+
+    @Test
+    void addDifferentElemCount() {
+        SparseVector vec1 = new SparseVector(10);
+        vec1.setElement(4, 33.0);
+        SparseVector vec2 = new SparseVector(10);
+        vec2.setElement(1, 12.3);
+        vec2.setElement(3, 7.4);
+        SparseVector expected = new SparseVector(10);
+        expected.setElement(4, 33.0);
+        expected.setElement(1, 12.3);
+        expected.setElement(3, 7.4);
+
+        assertTrue(vec1.equals(expected));
+    }
+
+    @Test
+    void addResultingInNullRow() {
+        SparseVector vec1 = new SparseVector(1);
+        SparseVector vec2 = new SparseVector(1);
+        vec1.setElement(0, -4.0);
+        vec2.setElement(0, 4.0);
+        vec1.add(vec2);
+        SparseVector expected = new SparseVector(1);
+
+
+        assertTrue(vec1.equals(expected));
+    }
+
+    @Test
+    void addWithDifferentLengths() {
+        SparseVector vec1 = new SparseVector(10);
+        SparseVector vec2 = new SparseVector(1);
+        vec1.setElement(0, 44.0);
+        vec2.setElement(0, 22.0);
+
+        assertThrows(IllegalArgumentException.class, () -> vec1.add(vec2));
+    }
+
 
     @Test
     void getLength() {
