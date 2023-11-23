@@ -148,6 +148,7 @@ public class SparseVector implements ISparseVector {
 
     @Override
     public void setElement(int index, double value) throws IndexOutOfBoundsException {
+        //if the index is impossible, an exception is thrown
         if(index > this.length || index < 0) {
             throw new IndexOutOfBoundsException(String.format("index %d out of bounds for size %d", index, this.length));
         }
