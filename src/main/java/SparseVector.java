@@ -1,3 +1,9 @@
+import java.util.Random;
+
+/**
+ * SparseVector with a LinkedList as backing Datastructure.
+ * The LinkedList only contains the non-zero rows of the vector
+ */
 public class SparseVector implements ISparseVector {
     /*
         Supporting Linked List Construct. Usually this would be in an extra file
@@ -226,5 +232,33 @@ public class SparseVector implements ISparseVector {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Performs a Test on a vector with 100000 elements. It asserts that elements get deleted
+     * when they add up to 0 and that elements are correctly added to the vector when using {@link #add(ISparseVector)}.
+     */
+    public static void test() {
+        SparseVector vec1 = new SparseVector(100000);
+        SparseVector vec2 = new SparseVector(100000);
+        SparseVector vec3 = new SparseVector(100000);
+        // Random to generate values for our vector
+        Random r = new Random();
+        // Setup one element to add up to zero to test this case
+        vec1.setElement(0, -10.0);
+        // fill our vector with elements
+        for(int i = 2; i < 100000; i += 1) {
+            if(i % 2 == 0) {
+                double value = 1000 * r.nextDouble();
+                vec1.setElement(i, value);
+                vec3.setElement(i, value);
+            }
+        }
+        vec2.setElement(0, 10.0);
+        vec2.setElement(1, 20.0);
+        // add vectors together
+        vec1.add(vec2);
+        // assert that everything worked properly
+        assert vec1.equals(vec3);
     }
 }
