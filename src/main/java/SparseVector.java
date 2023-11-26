@@ -1,12 +1,14 @@
 import java.util.Random;
 
+// Submission from Max Körschen(fdai7401), Kai Kehres(fdai), Jacques Falbe(fdai7637) and Leon Lux(fdai7324)
+
 /**
- * SparseVector with a LinkedList as backing Datastructure.
+ * SparseVector with a LinkedList as backing data structure.
  * The LinkedList only contains the non-zero rows of the vector
  */
-public class SparseVector implements ISparseVector {
+public class SparseVector {
     /*
-        Supporting Linked List Construct. Usually this would be in an extra file
+        Supporting Linked List class. Usually this would be in an extra file
      */
     private static class LinkedList {
         static class Node {
@@ -158,7 +160,6 @@ public class SparseVector implements ISparseVector {
      * @param value, of the element that is to be placed
      * @throws IndexOutOfBoundsException when index is greater than length or smaller than 0.
      */
-    @Override
     public void setElement(int index, double value) throws IndexOutOfBoundsException {
         //if the index is impossible, an exception is thrown
         if(index > this.length || index < 0) {
@@ -178,7 +179,6 @@ public class SparseVector implements ISparseVector {
      * @param index, the index of the element
      * @return returns the value of the element
      */
-    @Override
     public double getElement(int index) throws IndexOutOfBoundsException{
         //if the index is impossible, an exception is thrown
         if(index > this.length || index < 0) {
@@ -196,7 +196,6 @@ public class SparseVector implements ISparseVector {
      * Removes the element at <code>index</code>
      * @param index of the element to remove
      */
-    @Override
     public void remove(int index) throws IndexOutOfBoundsException {
         //if the index is impossible, an exception is thrown
         if(index > this.length || index < 0) {
@@ -210,8 +209,7 @@ public class SparseVector implements ISparseVector {
      * Adds another vector to the values in this instance
      * @param vector to add
      */
-    @Override
-    public void add(ISparseVector vector) throws IllegalArgumentException {
+    public void add(SparseVector vector) throws IllegalArgumentException {
         //if the vectors are not equal in length, they cannot be added; an exception is thrown
         if(vector.getLength() != this.length) {
             throw new IllegalArgumentException(String.format("cannot add vector of length %d to vector of length %d", vector.getLength(), this.length));
@@ -227,7 +225,6 @@ public class SparseVector implements ISparseVector {
      * returns the actual length of the SparseVector.
      * @return returns the actual length of the SparseVector.
      */
-    @Override
     public int getLength() {
         return this.length;
     }
@@ -266,7 +263,7 @@ public class SparseVector implements ISparseVector {
 
     /**
      * Performs a Test on a vector with 100000 elements. It asserts that elements get deleted
-     * when they add up to 0 and that elements are correctly added to the vector when using {@link #add(ISparseVector)}.
+     * when they add up to 0 and that elements are correctly added to the vector when using {@link #add(SparseVector)}.
      */
     public static void test() {
         SparseVector vec1 = new SparseVector(100000);
