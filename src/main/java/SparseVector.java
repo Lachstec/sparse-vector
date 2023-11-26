@@ -152,6 +152,12 @@ public class SparseVector implements ISparseVector {
         backingList = new LinkedList();
     }
 
+    /**
+     * Inserts the value at the index specified.
+     * @param index, where the element is to be placed
+     * @param value, of the element that is to be placed
+     * @throws IndexOutOfBoundsException when index is greater than length or smaller than 0.
+     */
     @Override
     public void setElement(int index, double value) throws IndexOutOfBoundsException {
         //if the index is impossible, an exception is thrown
@@ -167,6 +173,11 @@ public class SparseVector implements ISparseVector {
         }
     }
 
+    /**
+     * Finds the element at the specified index
+     * @param index, the index of the element
+     * @return returns the value of the element
+     */
     @Override
     public double getElement(int index) throws IndexOutOfBoundsException{
         //if the index is impossible, an exception is thrown
@@ -181,6 +192,10 @@ public class SparseVector implements ISparseVector {
         return this.backingList.get(index);
     }
 
+    /**
+     * Removes the element at <code>index</code>
+     * @param index of the element to remove
+     */
     @Override
     public void remove(int index) throws IndexOutOfBoundsException {
         //if the index is impossible, an exception is thrown
@@ -191,6 +206,10 @@ public class SparseVector implements ISparseVector {
         this.backingList.remove(index);
     }
 
+    /**
+     * Adds another vector to the values in this instance
+     * @param vector to add
+     */
     @Override
     public void add(ISparseVector vector) throws IllegalArgumentException {
         //if the vectors are not equal in length, they cannot be added; an exception is thrown
@@ -204,11 +223,22 @@ public class SparseVector implements ISparseVector {
         }
     }
 
+    /**
+     * returns the actual length of the SparseVector.
+     * @return returns the actual length of the SparseVector.
+     */
     @Override
     public int getLength() {
         return this.length;
     }
 
+    /**
+     * Checks if the passed vector is equal to the given vector.
+     * Two vectors are considered equal to each other when they have the same length
+     * and the same elements at the same indices.
+     * @param other vector to compare to
+     * @return true when both vectors are equal, false when not
+     */
     public boolean equals(SparseVector other) {
         //both vectors need to be equal in length
         if(this.length == other.getLength()) {
