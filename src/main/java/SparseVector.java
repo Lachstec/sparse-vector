@@ -1,6 +1,6 @@
 import java.util.Random;
 
-// Submission from Max Körschen(fdai7401), Kai Kehres(fdai), Jacques Falbe(fdai7637) and Leon Lux(fdai7324)
+// Submission from Max Körschen(fdai7401), Kai Kehres(fdai7336), Jacques Falbe(fdai7637) and Leon Lux(fdai7324)
 
 /**
  * SparseVector with a LinkedList as backing data structure.
